@@ -31,6 +31,11 @@ type human interface {
 speak()
 }
 
+// function takes the abstract type (second exmaple of interface)
+func foo(h human) {
+	h.speak()
+}
+
 func main() {
 
 //concrete type is person, secretAgent
@@ -62,4 +67,11 @@ x = p1
 y = sa1
 x.speak()
 y.speak()
+fmt.Println("--------------------------")
+foo(x)
+foo(y)
+foor(p1)
+foo(sa1)
 }
+
+///

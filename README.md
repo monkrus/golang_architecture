@@ -18,7 +18,7 @@
 
 ##curl
 
-1. To see headers fir the specific website, type `curl -v  https://www.google.com/teapot `
+1. To see headers for the specific website, type `curl -v  https://www.google.com/teapot `
    (GET...Accept), (HTTP...Accept)
 
 ## web architecture

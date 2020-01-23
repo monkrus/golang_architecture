@@ -1,77 +1,72 @@
 package main
 
+import (
+    "fmt"
+)
 
-import "fmt"
 
-//concrete type person
 type person struct {
-first string
+	first string
 }
 
-func (p person) speak() {
-fmt.Println ("My last warning, ", p.first)
+type mongo   map [int]person
+type postg   map [int]person
+
+// `m mongo` is a receiver
+// `n int, p person` is a key/value pair
+func (m mongo) save (n int, p person) {
+	m[n] = p
 }
 
-
-type secretAgent struct {
-person
-ltk bool	
+func (m mongo) retreive (n int) person {
+	return m[n]
 }
 
-func (sa secretAgent) speak() {
-fmt.Println ("Run now, " , sa.first)
+func (pg postg) save (n int, p person) {
+	pg[n] = p
 }
 
-// any TYPE that has the methods specified by an interface
-// is also of the interface type
-// an interface says
-// "Hey, baby, if you have these methods, then you`re my type."
-
-type human interface {
-speak()
+func (pg postg) retreive (n int)  person {
+	return pg[n]
 }
 
-// function takes the abstract type (second exmaple of interface)
-func foo(h human) {
-	h.speak()
+type accessor interface {
+	save(n int, p person)
+	retreive(n int) person
+}
+
+func put (a accessor, n int, p person) {
+	a.save(n, p)
+}
+
+func get(a accessor, n int) person {
+return	a.retreive(n)
 }
 
 func main() {
 
-//concrete type is person, secretAgent
-//ABSTRACT type is human
-p1 := person{ 
-	first:"Miss Moneypenny",
-}
+	dbm := mongo{}
+    dbp := postg{}
 
-sa1 := secretAgent {
-	person: person {
-		first:"James",	
-	},
-	ltk: true,
-}
-			
+    p1:= person {
+    	first: "Jenny",
+    }
 
-	fmt.Printf("%T\n", p1)
+    p2:= person {
+    	first: "James",
+    }
 
+    put(dbm, 1, p1)
+    put(dbm, 2, p2)
 
-//1. Type person created
-//2. Attached a method speak() with receiver (p person)
-//3. Created interface human
-//   VALUE can be of more than one TYPE
-//   p1 is both TYPE person and TYPE human
+    fmt.Println(get(dbm, 1))
+    fmt.Println(get(dbm, 2))
 
+    //or store in some other data storage
+    put(dbp, 1, p1)
+    put(dbp, 2, p2)
 
-var x, y human
-x = p1
-y = sa1
-x.speak()
-y.speak()
-fmt.Println("--------------------------")
-foo(x)
-foo(y)
-foor(p1)
-foo(sa1)
-}
+    fmt.Println(get(dbp, 1))
+    fmt.Println(get(dbp, 2))
 
-///
+    }

@@ -34,7 +34,7 @@
 
 - package documentation goes into `doc.go` file, types,function ,interface etc. documentation is added in comments above the code.
 
-2. Testing
+
 
 
 

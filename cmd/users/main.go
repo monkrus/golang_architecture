@@ -1,7 +1,7 @@
 package main
 
 import ( "fmt"
-	"github.com/monkrus/golang_architecture"
+	"github.com/monkrus/golang_architecture.git"
 	"github.com/monkrus/golang_architecture/storage/harddrive"
 	
 )

@@ -1,4 +1,4 @@
-### GO
+idy### GO
 
 ## installation
 
@@ -33,6 +33,8 @@
 - `cmd` folder cointains all the packages (e.g. package person) , and package person will contain `main.go` inside of it
 
 - package documentation goes into `doc.go` file, types,function ,interface etc. documentation is added in comments above the code.
+
+
 
 
 

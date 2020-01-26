@@ -1,33 +1,33 @@
-package main
+package session
 
-import (
-"fmt"
-"context"
-)
+type stringKey string
+type intKey int
 
-func main() {
-// parent context
-ctx:= context.WithValue(context.Background(), "userID", 12345)
-// child context
-ctx = context.WithValue(ctx, 1, "admin") 
-// printout
-if v :=ctx.Value("userID"); v !=nil {
-	fmt.Println(v)
-} else {
-fmt.Println("no value associated with that key")
+var userID stringKey
+var admin intKey
+
+
+func SetUserId(ctx context.Context, uID int) context.Context {
+	return context.WithValue (ctx, userID, uID)
 }
 
-if v :=ctx.Value(1); v !=nil {
-	fmt.Println(v)
-} else {
-	fmt.Println("no value associated with that key")
+func SetIsAdmin (ctx context.Context, isAdmin bool) context.Context {
+	return context.WithValue(ctx, admin, isAdmin)
 }
 
-if v := ctx.Value(2); v!= nil {
-	fmt.Println(v)
-	}else  {
-		fmt.Println("no value associated with that key")
+func GetUserId(ctx context.Context) int {
+	if uid:= ctx.Value(userID); uid !=nil {
+		if i, ok := uid(int); ok {
+			return i
+		}
 	}
+	return 0
 }
 
-
+func GetIsAdmin (ctx context.Context) bool {
+	if  b := ctx.Value(admin); 
+		if v, ok:= b.(bool); ok {
+			return v
+	}
+	return false
+}

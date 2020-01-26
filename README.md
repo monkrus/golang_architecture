@@ -41,7 +41,15 @@ idy### GO
 2. Background returns a non-nil, empty Context. It is never canceled, has no values, and has no deadline. 
    It is typically used by the main function, initialization, and tests, and as the top-level Context for incoming requests.
 
-3.
+3. functions : 
+`func function_name( [parameter list] ) [return_types]
+{
+   body of the function
+}`
+
+-parameter is a placeholder for values (arguments) to pass.The parameter list refers to the type, order amd number of parameters in function.
+
+-return type is a list of data type of the values the function returns.
 
 
 

@@ -34,9 +34,14 @@ idy### GO
 
 - package documentation goes into `doc.go` file, types,function ,interface etc. documentation is added in comments above the code.
 
+## notes
 
+1. In Go, `:=`  is for declaration + assignment, whereas `=` is for assignment only.For example, var foo int = 10 is the same as foo := 10
 
+2. Background returns a non-nil, empty Context. It is never canceled, has no values, and has no deadline. 
+   It is typically used by the main function, initialization, and tests, and as the top-level Context for incoming requests.
 
+3.
 
 
 

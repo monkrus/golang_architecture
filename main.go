@@ -1,33 +1,32 @@
-package session
+package main
 
-type stringKey string
-type intKey int
+import (
+	"context"
+	"time"
+)
 
-var userID stringKey
-var admin intKey
+func main() {
+//PARENT context
+	ctx := context.Background()
+// CHILD Context with timeout returns two values
+//waits for half second
+	ctx, cancelF := context.WithTimeout(ctx, 500*time.Millisecond)
+// cleanup, shutting it down
+	defer cancelF()
+// then some work starts
+	time.Sleep(100* time.Millisecond)
+//check the status of the channel
 
+//when done channel gets closed it is in `"false" and has a ZERO value.`
+//what is coming off the channel?
+select {
 
-func SetUserId(ctx context.Context, uID int) context.Context {
-	return context.WithValue (ctx, userID, uID)
-}
-
-func SetIsAdmin (ctx context.Context, isAdmin bool) context.Context {
-	return context.WithValue(ctx, admin, isAdmin)
-}
-
-func GetUserId(ctx context.Context) int {
-	if uid:= ctx.Value(userID); uid !=nil {
-		if i, ok := uid(int); ok {
-			return i
-		}
+case <-ctx.Done();
+//not finished because done returned a VALUE !
+	fmt.Printl("work did not finished")
+default:
+	fmt.Printl("work  finished")
 	}
-	return 0
+
 }
 
-func GetIsAdmin (ctx context.Context) bool {
-	if  b := ctx.Value(admin); 
-		if v, ok:= b.(bool); ok {
-			return v
-	}
-	return false
-}

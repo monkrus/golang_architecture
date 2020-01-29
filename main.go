@@ -1,44 +1,37 @@
 package main
 
 import (
-	"context"
+	"errors"
 	"fmt"
-	"runtime"
-	"time"
+	"log"
+	"os"
 )
 
 func main() {
-	fmt.Printf("GOROUTINES RUNNING %d\n", runtime.NumGoroutine())
-	//PARENT context
-	ctx := context.Background()
-	// CHILD Context with timeout returns two values
-	ctx, cancelF := context.WithCancel(ctx)
-	// cleanup, shutting it down
-	defer cancelF()
 
-	// start a bunch of goroutines
-	for i := 0; i < 100; i++ {
-		// call an anonymous func
-		go func(n int) {
-			fmt.Println("launching goroutine", n)
-			for {
-				select {
-				case <-ctx.Done():
-					runtime.Goexit()
-				// `return` is an alternative to `Goexit`
-				//return
-				default:
-					fmt.Printf("goroutine %d is doing work\n", n)
-					time.Sleep(50 * time.Millisecond)
-				}
-			}
-		}(i)
+	f, err := os.Open("file.txt")
 
+	//MOST RECOMMENDED !!!
+	if errors.Is(err, os.ErrPermission) {
+		err = fmt.Errorf("you don`t have a permission to open file:%w", err)
+		log.Println(err)
+
+	} else if err == os.ErrPermission {
+		err = fmt.Errorf("you don`t have a permission to open file:%w", err)
+		log.Println(err)
+
+	} else if err == os.ErrNotExist {
+		err = fmt.Errorf("the file does not exist:%w", err)
+		log.Println(err)
+
+	} else if err != nil {
+
+		//old school, version 1
+		//panic(err)
+
+		//version 2, more meaningful
+		//err = fmt.Errorf("file could not be opened: %w", err)
+		//log.Println(err)
 	}
-	time.Sleep(time.Millisecond)
-	fmt.Printf("GOROUTINES RUNNING AFTER ONE MILLISECOND %d\n", runtime.NumGoroutine())
-	cancelF()
-	time.Sleep(100 * time.Millisecond)
-	fmt.Printf("GOROUTINES RUNNING AFTER Cancelfunc called %d\n", runtime.NumGoroutine())
-
+	defer f.Close()
 }

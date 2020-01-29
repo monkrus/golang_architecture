@@ -51,6 +51,24 @@ idy### GO
 
 -return type is a list of data type of the values the function returns.
 
+## errors
+
+-deal with your errors OR provide meaning so that your error tells what, where, how, whom, and when (as applicable) and return it
+
+-if we just fmt.Println or log.Println or panic our “error” then we don’t get this extra meaning. 
+
+ADD MEANING TO YOUR ERRORS WITH
+
+-fmt.Errorf and use %w and pass in the error to %w
+-this allows us to unwrap our error to one level of func calls
+-this allows us to use IS or AS to many levels of func calls
+
+-errors.New() when you don’t need to pass in a previous error
+-good for creating a “base” error that everything is going off
+-you can also use fmt.Errorf for the “base” error and just not pass into %w
+
+-pass errors up through the call stack as necessary, adding something to each pass
+
 
 
 

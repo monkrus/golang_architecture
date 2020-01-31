@@ -51,6 +51,10 @@ idy### GO
 
 -return type is a list of data type of the values the function returns.
 
+4. `&` returns the memory address of the following variable.
+
+   `*` returns the value of the following variable
+
 ## errors
 
 -deal with your errors OR provide meaning so that your error tells what, where, how, whom, and when (as applicable) and return it

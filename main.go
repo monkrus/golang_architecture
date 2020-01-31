@@ -1,37 +1,37 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"log"
-	"os"
 )
 
-func main() {
+//Type error implements the ERROR interface
+//implement the string
+// takes receiver`string`, implements `Error()`, returns `string`
+// we are getting an error message, NOT creating a new error
 
-	f, err := os.Open("file.txt")
+type errorString string
 
-	//MOST RECOMMENDED !!!
-	if errors.Is(err, os.ErrPermission) {
-		err = fmt.Errorf("you don`t have a permission to open file:%w", err)
-		log.Println(err)
+func (es errorString) Error() string {
 
-	} else if err == os.ErrPermission {
-		err = fmt.Errorf("you don`t have a permission to open file:%w", err)
-		log.Println(err)
-
-	} else if err == os.ErrNotExist {
-		err = fmt.Errorf("the file does not exist:%w", err)
-		log.Println(err)
-
-	} else if err != nil {
-
-		//old school, version 1
-		//panic(err)
-
-		//version 2, more meaningful
-		//err = fmt.Errorf("file could not be opened: %w", err)
-		//log.Println(err)
-	}
-	defer f.Close()
+	return fmt.Sprintf("this is an error string with info -%s", string(es))
 }
+
+func main() {
+	n, err := sum(2, 4)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(n)
+}
+
+func sum(i, j int) (int, error) {
+	n := i + j
+	if n != i+j {
+		var sErr errorString = "the numbers did not add up"
+		return 0, sErr
+	}
+	return n, nil
+}
+
+//error interface

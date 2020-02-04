@@ -1,4 +1,7 @@
-##GO basics
+## GO basics
+## Your 1nd step towards mastering your Go lang 
+
+
 
 ## installation
 

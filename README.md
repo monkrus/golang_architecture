@@ -1,4 +1,4 @@
-idy### GO
+##GO basics
 
 ## installation
 
